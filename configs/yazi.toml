@@ -1,0 +1,16 @@
+# ═══════════════════════════════════════════════════════════════════
+# YAZI FILE MANAGER CONFIGURATION
+# https://github.com/YOUR_USERNAME/GhosttyChad
+# ═══════════════════════════════════════════════════════════════════
+
+[mgr]
+show_hidden = false
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+
+[preview]
+wrap = "yes"
+max_width = 1000
+max_height = 1000

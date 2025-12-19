@@ -1,0 +1,175 @@
+# ═══════════════════════════════════════════════════════════════════
+# ZSH CONFIGURATION - GhosttyChad
+# https://github.com/YOUR_USERNAME/GhosttyChad
+# ═══════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────
+# PATH (set early)
+# ─────────────────────────────────────────────────────────────────────
+[ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+
+# ─────────────────────────────────────────────────────────────────────
+# HISTORY
+# ─────────────────────────────────────────────────────────────────────
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt EXTENDED_HISTORY          # Write timestamps to history
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicates first
+setopt HIST_IGNORE_DUPS          # Don't record duplicates
+setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
+setopt HIST_VERIFY               # Show before executing history commands
+setopt SHARE_HISTORY             # Share history between sessions
+
+# ─────────────────────────────────────────────────────────────────────
+# COMPLETIONS (fpath MUST be set before compinit)
+# ─────────────────────────────────────────────────────────────────────
+fpath=(~/.zsh/plugins/zsh-completions/src $fpath)
+
+autoload -Uz compinit
+compinit
+
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Menu selection
+zstyle ':completion:*' menu select
+
+# Colors in completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# ─────────────────────────────────────────────────────────────────────
+# KEY BINDINGS
+# ─────────────────────────────────────────────────────────────────────
+bindkey -e                           # Emacs keybindings
+bindkey '^[[A' history-search-backward    # Up arrow
+bindkey '^[[B' history-search-forward     # Down arrow
+bindkey '^[[H' beginning-of-line          # Home
+bindkey '^[[F' end-of-line                # End
+bindkey '^[[3~' delete-char               # Delete
+bindkey '^[[1;5C' forward-word            # Ctrl+Right
+bindkey '^[[1;5D' backward-word           # Ctrl+Left
+
+# ─────────────────────────────────────────────────────────────────────
+# PLUGINS (Fish-like features)
+# ─────────────────────────────────────────────────────────────────────
+# Autosuggestions (like Fish)
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#6c7086'  # Catppuccin overlay0
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# Right Arrow: accept suggestion (like Fish)
+bindkey '^[[C' autosuggest-accept
+
+# Syntax highlighting (like Fish) - must be last plugin
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# ─────────────────────────────────────────────────────────────────────
+# STARSHIP PROMPT
+# ─────────────────────────────────────────────────────────────────────
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# ─────────────────────────────────────────────────────────────────────
+# TOOL INTEGRATIONS
+# ─────────────────────────────────────────────────────────────────────
+# FZF
+source /usr/share/doc/fzf/examples/key-bindings.zsh 2>/dev/null || true
+source /usr/share/doc/fzf/examples/completion.zsh 2>/dev/null || true
+
+# Remap fzf file search: Ctrl+T -> Ctrl+F (Ctrl+T used by Ghostty for new tab)
+bindkey -r '^T'
+bindkey '^F' fzf-file-widget
+
+# FZF Catppuccin Mocha theme
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--multi"
+
+# Zoxide (smarter cd)
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# ─────────────────────────────────────────────────────────────────────
+# ALIASES
+# ─────────────────────────────────────────────────────────────────────
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# List files (eza if available, else ls)
+if command -v eza &> /dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -la --icons --group-directories-first'
+    alias la='eza -a --icons --group-directories-first'
+    alias lt='eza -T --icons --level=2'  # Tree view
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -la'
+    alias la='ls -A'
+fi
+
+# Cat (bat/batcat - Ubuntu uses batcat)
+if command -v batcat &> /dev/null; then
+    alias cat='batcat --paging=never'
+    alias bat='batcat'
+    alias catp='batcat'  # With pager
+elif command -v bat &> /dev/null; then
+    alias cat='bat --paging=never'
+    alias catp='bat'
+fi
+
+# Grep with color
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Yazi file manager
+alias y='yazi'
+
+# Quick edit configs
+alias zshrc='${EDITOR:-nano} ~/.zshrc'
+alias ghosttyrc='${EDITOR:-nano} ~/.config/ghostty/config'
+
+# Safety
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+# ─────────────────────────────────────────────────────────────────────
+# FUNCTIONS
+# ─────────────────────────────────────────────────────────────────────
+# Create directory and cd into it
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Yazi with cd on exit
+function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+# ─────────────────────────────────────────────────────────────────────
+# ENVIRONMENT
+# ─────────────────────────────────────────────────────────────────────
+export EDITOR='nano'
+export VISUAL='nano'
+export PAGER='less'
+export LANG='en_US.UTF-8'
+
+# ─────────────────────────────────────────────────────────────────────
+# FINAL
+# ─────────────────────────────────────────────────────────────────────
+# Disable ctrl+s/ctrl+q flow control
+stty -ixon 2>/dev/null
