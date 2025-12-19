@@ -3,7 +3,7 @@
 # GhosttyChad Installer
 # A modern terminal stack for Ubuntu with Ghostty, Zsh, and friends
 #
-# https://github.com/YOUR_USERNAME/GhosttyChad
+# https://github.com/PavloGrubyi/GhosttyChad
 #
 
 set -e

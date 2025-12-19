@@ -35,7 +35,7 @@ A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghos
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/GhosttyChad.git
+git clone https://github.com/PavloGrubyi/GhosttyChad.git
 cd GhosttyChad
 ./install.sh
 ```

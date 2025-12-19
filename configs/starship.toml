@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════════════
 # STARSHIP PROMPT - Catppuccin Mocha Theme
-# https://github.com/YOUR_USERNAME/GhosttyChad
+# https://github.com/PavloGrubyi/GhosttyChad
 # ═══════════════════════════════════════════════════════════════════
 
 "$schema" = 'https://starship.rs/config-schema.json'
