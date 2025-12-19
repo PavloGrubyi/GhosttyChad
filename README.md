@@ -1,6 +1,6 @@
 # GhosttyChad
 
-A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghostty.org), Zsh with Fish-like features, and a beautiful Catppuccin theme. Optimized for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghostty.org), Zsh with Fish-like features, and a beautiful Catppuccin theme. Optimized for [Claude Code](https://github.com/anthropics/claude-code).
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td><img src="https://github.com/user-attachments/assets/b5141122-f9e4-4364-b325-867093eb3a9a" width="100%"></td>
