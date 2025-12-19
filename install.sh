@@ -101,23 +101,23 @@ install_zsh_plugins() {
 
     mkdir -p ~/.zsh/plugins
 
-    # zsh-autosuggestions
+    # zsh-autosuggestions (pinned to v0.7.1)
     if [ ! -d ~/.zsh/plugins/zsh-autosuggestions ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+        git clone --branch v0.7.1 --depth 1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
     else
         echo "  zsh-autosuggestions already installed"
     fi
 
-    # zsh-syntax-highlighting
+    # zsh-syntax-highlighting (pinned to 0.8.0)
     if [ ! -d ~/.zsh/plugins/zsh-syntax-highlighting ]; then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
+        git clone --branch 0.8.0 --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
     else
         echo "  zsh-syntax-highlighting already installed"
     fi
 
-    # zsh-completions
+    # zsh-completions (pinned to 0.9.0)
     if [ ! -d ~/.zsh/plugins/zsh-completions ]; then
-        git clone https://github.com/zsh-users/zsh-completions ~/.zsh/plugins/zsh-completions
+        git clone --branch 0.9.0 --depth 1 https://github.com/zsh-users/zsh-completions ~/.zsh/plugins/zsh-completions
     else
         echo "  zsh-completions already installed"
     fi
@@ -181,12 +181,14 @@ install_nerd_font() {
     else
         print_step "Installing JetBrainsMono Nerd Font..."
         mkdir -p ~/.local/share/fonts
-        cd /tmp
+        local tmpdir=$(mktemp -d)
+        cd "$tmpdir"
         wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
         unzip -o -q JetBrainsMono.zip -d JetBrainsMono
         cp JetBrainsMono/*.ttf ~/.local/share/fonts/
         fc-cache -fv
-        rm -rf JetBrainsMono JetBrainsMono.zip
+        cd - > /dev/null
+        rm -rf "$tmpdir"
     fi
 }
 
