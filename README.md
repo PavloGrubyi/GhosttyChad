@@ -1,6 +1,15 @@
 # GhosttyChad
 
 A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghostty.org), Zsh with Fish-like features, and a beautiful Catppuccin theme.
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/b5141122-f9e4-4364-b325-867093eb3a9a" width="100%"></td>
+      <td><img src="https://github.com/user-attachments/assets/548031e9-61e4-4ca1-9196-6fe6dba55ba7" width="100%"></td>
+    </tr>
+  </table>
+
+
+
 
 ![Catppuccin Mocha Theme](https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png)
 
