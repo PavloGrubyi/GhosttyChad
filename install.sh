@@ -58,16 +58,21 @@ check_ubuntu() {
     fi
 }
 
-check_ghostty() {
-    if ! command -v ghostty &> /dev/null; then
-        print_error "Ghostty is not installed."
-        echo ""
-        echo "Please install Ghostty first:"
-        echo "  https://ghostty.org/docs/install/binary#ubuntu-and-debian"
-        echo ""
-        exit 1
+install_ghostty() {
+    print_step "Installing Ghostty..."
+
+    if command -v ghostty &> /dev/null; then
+        echo "  Ghostty $(ghostty --version | head -1 | awk '{print $2}') already installed"
+    else
+        # Add Ghostty apt repository
+        sudo mkdir -p /etc/apt/keyrings
+        wget -qO- https://release.files.ghostty.org/gpg | sudo tee /etc/apt/keyrings/ghostty.asc > /dev/null
+        echo "deb [signed-by=/etc/apt/keyrings/ghostty.asc] https://release.files.ghostty.org/apt stable main" | \
+            sudo tee /etc/apt/sources.list.d/ghostty.list > /dev/null
+        sudo apt update
+        sudo apt install -y ghostty
+        echo "  Ghostty installed successfully"
     fi
-    print_step "Ghostty $(ghostty --version | head -1 | awk '{print $2}') detected"
 }
 
 install_apt_packages() {
@@ -282,7 +287,6 @@ print_success() {
 main() {
     print_banner
     check_ubuntu
-    check_ghostty
 
     echo ""
     read -p "This will install GhosttyChad. Continue? [Y/n] " -n 1 -r
@@ -294,6 +298,7 @@ main() {
 
     backup_configs
     install_apt_packages
+    install_ghostty
     install_nerd_font
     install_zsh_plugins
     install_starship

@@ -39,7 +39,6 @@ A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghos
 ## Prerequisites
 
 - Ubuntu 22.04+ (may work on other Debian-based distros)
-- [Ghostty](https://ghostty.org/docs/install/binary#ubuntu-and-debian) installed
 
 ## Installation
 
