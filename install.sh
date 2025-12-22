@@ -173,6 +173,35 @@ install_yazi() {
     fi
 }
 
+install_nvchad() {
+    print_step "Installing NvChad (Neovim IDE)..."
+
+    # Install Neovim from PPA for latest version
+    if command -v nvim &> /dev/null; then
+        echo "  Neovim already installed"
+    else
+        sudo add-apt-repository -y ppa:neovim-ppa/unstable
+        sudo apt update
+        sudo apt install -y neovim
+    fi
+
+    # Install NvChad
+    if [ -d ~/.config/nvim ] && [ -f ~/.config/nvim/lua/chadrc.lua ]; then
+        echo "  NvChad already installed"
+    else
+        # Backup existing nvim config if exists
+        if [ -d ~/.config/nvim ]; then
+            local backup_dir=~/.config/nvim-backup-$(date +%Y%m%d-%H%M%S)
+            mv ~/.config/nvim "$backup_dir"
+            echo "  Existing nvim config backed up to $backup_dir"
+        fi
+        rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
+
+        git clone https://github.com/NvChad/starter ~/.config/nvim
+        echo "  NvChad installed - run 'nvim' to complete setup"
+    fi
+}
+
 install_nerd_font() {
     print_step "Checking for Nerd Font..."
 
@@ -281,6 +310,7 @@ print_success() {
     echo "  ~/.config/ghostty/config"
     echo "  ~/.config/starship.toml"
     echo "  ~/.config/yazi/yazi.toml"
+    echo "  ~/.config/nvim/"
     echo "  ~/.zshrc"
     echo ""
 }
@@ -307,6 +337,7 @@ main() {
     install_zoxide
     install_eza
     install_yazi
+    install_nvchad
     install_configs
     set_default_shell
 

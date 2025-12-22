@@ -20,6 +20,7 @@ A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghos
 | [Ghostty](https://ghostty.org) | Fast, GPU-accelerated terminal emulator |
 | [Zsh](https://www.zsh.org/) | Powerful shell with Fish-like features |
 | [Starship](https://starship.rs/) | Minimal, fast, customizable prompt |
+| [NvChad](https://nvchad.com/) | Neovim IDE with LSP, syntax highlighting, and more |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder for files and history |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd command |
 | [eza](https://github.com/eza-community/eza) | Modern ls replacement |
@@ -87,6 +88,7 @@ Then close and reopen Ghostty.
 |---------|-------------|
 | `z <dir>` | Smart cd (learns frequent paths) |
 | `zi` | Interactive directory picker |
+| `nvim` | NvChad Neovim IDE |
 | `y` or `yazi` | File manager |
 | `yy` | Yazi with cd on exit |
 | `ll` | Detailed list (eza) |
@@ -102,6 +104,7 @@ After installation, configs are located at:
 ~/.config/ghostty/config    # Terminal
 ~/.config/starship.toml     # Prompt
 ~/.config/yazi/yazi.toml    # File manager
+~/.config/nvim/             # Neovim (NvChad)
 ~/.zshrc                    # Shell
 ```
 
