@@ -229,6 +229,7 @@ backup_configs() {
 
     [ -f ~/.zshrc ] && cp ~/.zshrc "$backup_dir/"
     [ -f ~/.config/ghostty/config ] && cp ~/.config/ghostty/config "$backup_dir/"
+    [ -f ~/.config/ghostty/custom.css ] && cp ~/.config/ghostty/custom.css "$backup_dir/"
     [ -f ~/.config/starship.toml ] && cp ~/.config/starship.toml "$backup_dir/"
     [ -d ~/.config/yazi ] && cp -r ~/.config/yazi "$backup_dir/"
 
@@ -241,6 +242,9 @@ install_configs() {
     # Ghostty
     mkdir -p ~/.config/ghostty
     cp "$SCRIPT_DIR/configs/ghostty.config" ~/.config/ghostty/config
+    cp "$SCRIPT_DIR/configs/ghostty.custom.css" ~/.config/ghostty/custom.css
+    # Point the custom CSS at an absolute path in this user's home directory
+    sed -i "s|^gtk-custom-css = custom.css|gtk-custom-css = $HOME/.config/ghostty/custom.css|" ~/.config/ghostty/config
 
     # Starship
     mkdir -p ~/.config

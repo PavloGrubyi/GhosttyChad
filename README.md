@@ -36,6 +36,7 @@ A modern, opinionated terminal stack for Ubuntu featuring [Ghostty](https://ghos
 - **Fuzzy finding** - `Ctrl+F` to search files, `Ctrl+R` for history
 - **Smart directory jumping** - Use `z` to jump to frequent directories
 - **Beautiful theme** - Catppuccin Mocha everywhere
+- **Attention signals** - When Claude Code or Codex finishes or needs you, the window flashes and the tab gets an orange-red outline
 
 ## Prerequisites
 
